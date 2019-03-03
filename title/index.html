@@ -472,15 +472,6 @@
   <span class="author" itemprop="copyrightHolder">Kamio</span>
 
   
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Site words total count&#58;</span>
-    
-    <span title="Site words total count">74</span>
-  
 </div>
 
 
@@ -664,6 +655,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'VcK5GToxbILf37pX44nXRFWR-gzGzoHsz',
+        appKey: 'JkHkhi64Kiki7RkJFPP6SDsj',
+        placeholder: '留下你的评论...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
