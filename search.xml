@@ -4,6 +4,9 @@
     <title><![CDATA[title]]></title>
     <url>%2F2019%2F03%2F03%2Ftitle%2F</url>
     <content type="text"></content>
+      <categories>
+        <category>web前端</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[newpapername]]></title>
