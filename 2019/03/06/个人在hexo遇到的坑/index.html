@@ -109,18 +109,18 @@
 
 
 
-<meta name="description" content="####1.下载百度提交链接模块遇到bug 整百度SEO的时候，有个向百度提交自己网站地址的操作，安装了 “hexo-baidu-url-submit –save” 这个插件，网站认证是通过了. 然而，我吃个晚饭回来准备继续整网站时, hexo clean &amp;amp;&amp;amp; hexo g &amp;amp;&amp;amp; hexo s 一堆报错提示！当时内心简直崩溃！！！(才不会说是未保存就在本地调主题呢">
+<meta name="description" content="###1.下载百度提交链接模块遇到bug 整百度SEO的时候，有个向百度提交自己网站地址的操作，安装了 “hexo-baidu-url-submit –save” 这个插件，网站认证是通过了. 然而，我吃个晚饭回来准备继续整网站时, hexo clean &amp;amp;&amp;amp; hexo g &amp;amp;&amp;amp; hexo s 一堆报错提示！当时内心简直崩溃！！！(才不会说是未保存就在本地调主题呢…">
 <meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="个人在hexo遇到的坑">
 <meta property="og:url" content="http://kamiov.top/2019/03/06/个人在hexo遇到的坑/index.html">
 <meta property="og:site_name" content="建设中">
-<meta property="og:description" content="####1.下载百度提交链接模块遇到bug 整百度SEO的时候，有个向百度提交自己网站地址的操作，安装了 “hexo-baidu-url-submit –save” 这个插件，网站认证是通过了. 然而，我吃个晚饭回来准备继续整网站时, hexo clean &amp;amp;&amp;amp; hexo g &amp;amp;&amp;amp; hexo s 一堆报错提示！当时内心简直崩溃！！！(才不会说是未保存就在本地调主题呢">
+<meta property="og:description" content="###1.下载百度提交链接模块遇到bug 整百度SEO的时候，有个向百度提交自己网站地址的操作，安装了 “hexo-baidu-url-submit –save” 这个插件，网站认证是通过了. 然而，我吃个晚饭回来准备继续整网站时, hexo clean &amp;amp;&amp;amp; hexo g &amp;amp;&amp;amp; hexo s 一堆报错提示！当时内心简直崩溃！！！(才不会说是未保存就在本地调主题呢…">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-06T16:04:13.719Z">
+<meta property="og:updated_time" content="2019-03-06T16:09:18.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="个人在hexo遇到的坑">
-<meta name="twitter:description" content="####1.下载百度提交链接模块遇到bug 整百度SEO的时候，有个向百度提交自己网站地址的操作，安装了 “hexo-baidu-url-submit –save” 这个插件，网站认证是通过了. 然而，我吃个晚饭回来准备继续整网站时, hexo clean &amp;amp;&amp;amp; hexo g &amp;amp;&amp;amp; hexo s 一堆报错提示！当时内心简直崩溃！！！(才不会说是未保存就在本地调主题呢">
+<meta name="twitter:description" content="###1.下载百度提交链接模块遇到bug 整百度SEO的时候，有个向百度提交自己网站地址的操作，安装了 “hexo-baidu-url-submit –save” 这个插件，网站认证是通过了. 然而，我吃个晚饭回来准备继续整网站时, hexo clean &amp;amp;&amp;amp; hexo g &amp;amp;&amp;amp; hexo s 一堆报错提示！当时内心简直崩溃！！！(才不会说是未保存就在本地调主题呢…">
 
 
 
@@ -449,7 +449,7 @@ tpwidget("show");</script>
       
 
       
-        <p>####1.下载百度提交链接模块遇到bug</p>
+        <p>###1.下载百度提交链接模块遇到bug</p>
 <p>整百度SEO的时候，有个向百度提交自己网站地址的操作，安装了 “hexo-baidu-url-submit –save” 这个插件，网站认证是通过了.</p>
 <p>然而，我吃个晚饭回来准备继续整网站时,</p>
 <p>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</p>
@@ -457,14 +457,14 @@ tpwidget("show");</script>
 <p>这个bug我也没整懂，翻译意思好像是”Count”未赋值，一堆js文件里提示error:”Count”undefined，简直抓狂啊，这要怎么找bug！</p>
 <p>copy关键句怎样百度都没办法，甚至想到了克隆之前提交能跑的git仓库（结果没有克隆blog上传，git仓库里的是整合好的…)发现git仓库最近一次提交是19：22，于是只能用蠢办法翻chrome历史纪录查自己弄过什么插件了，照着历史纪录一个一个插件uninstall回去，改过的配置一一还原，最终通过报错的js文件，找到了源头”百度提交插件”的锅…</p>
 <p>npm uninstall hexo-baidu-url-submit –save ，得嘞 你给我滚回去吧(怒</p>
-<p>####2.fs.SyncWriteStream is deprecated</p>
+<p>###2.fs.SyncWriteStream is deprecated</p>
 <p>关于这个错误，参考了这篇博主的文章：<a href="https://www.leiyawu.com/2018/02/28/hexo-fs-SyncWriteStream-is-deprecated/" target="_blank" rel="noopener">https://www.leiyawu.com/2018/02/28/hexo-fs-SyncWriteStream-is-deprecated/</a></p>
 <p>这里稍微贴下方法步骤吧</p>
 <p>npm install hexo-fs –save&emsp;更新hexo-fs插件</p>
 <p>问题出在：hexo-admin的hexo-fs<br>因hexo-admin作为后台管理，无法npm uninstall hexo-admin卸载,则找到对应文件，注释：</p>
 <p>[root@server init]# grep -irn “SyncWriteStream” ./node_modules/hexo-admin/<br>./node_modules/hexo-admin/node_modules/hexo-fs/lib/fs.js:718:exports.SyncWriteStream = fs.SyncWriteStream;<br>[root@lywserver init]#</p>
 <p>将对应的exports.SyncWriteStream = fs.SyncWriteStream;注释(前面 //)即可！</p>
-<p>####3.蠢蠢的把网站下面运行时间的©打成了@,这个报错很好就找到了…</p>
+<p>###3.蠢蠢的把网站下面运行时间的©打成了@,这个报错很好就找到了…</p>
 
       
     </div>
@@ -1381,5 +1381,5 @@ tpwidget("show");</script>
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 </html>
