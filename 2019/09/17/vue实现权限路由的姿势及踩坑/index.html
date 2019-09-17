@@ -1,0 +1,174 @@
+<!-- build time:Tue Sep 17 2019 19:35:15 GMT+0800 (GMT+08:00) --><!DOCTYPE html><html class="theme-next pisces use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><script src="/lib/pace/pace.min.js?v=1.0.2"></script><link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222"><meta name="keywords" content="vue,"><meta name="description" content="记录一下自己用到的路由权限简易实现第一次实习就遇上这个大难点，本菜鸟翻阅了大量的资料，踩过了一堆坑之后才有了实现过程，希望尽量能写的简单易懂点，有错误的地方望指正。路由权限基本实现的几种方式思路（由易到难）首先要知道，在route.js只能通过钩子函数操纵数据，直接push会导致搭配的路由懒加载失效，而且是无法对route树进行操作的…至少你无法删除已生成的路由。(本文假装你已经有了vue基础)其"><meta name="keywords" content="vue"><meta property="og:type" content="article"><meta property="og:title" content="vue实现权限路由的姿势及踩坑"><meta property="og:url" content="http://kamiov.top/2019/09/17/vue实现权限路由的姿势及踩坑/index.html"><meta property="og:site_name" content="kamiov的小屋"><meta property="og:description" content="记录一下自己用到的路由权限简易实现第一次实习就遇上这个大难点，本菜鸟翻阅了大量的资料，踩过了一堆坑之后才有了实现过程，希望尽量能写的简单易懂点，有错误的地方望指正。路由权限基本实现的几种方式思路（由易到难）首先要知道，在route.js只能通过钩子函数操纵数据，直接push会导致搭配的路由懒加载失效，而且是无法对route树进行操作的…至少你无法删除已生成的路由。(本文假装你已经有了vue基础)其"><meta property="og:locale" content="zh-Hans"><meta property="og:updated_time" content="2019-09-17T11:34:37.352Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="vue实现权限路由的姿势及踩坑"><meta name="twitter:description" content="记录一下自己用到的路由权限简易实现第一次实习就遇上这个大难点，本菜鸟翻阅了大量的资料，踩过了一堆坑之后才有了实现过程，希望尽量能写的简单易懂点，有错误的地方望指正。路由权限基本实现的几种方式思路（由易到难）首先要知道，在route.js只能通过钩子函数操纵数据，直接push会导致搭配的路由懒加载失效，而且是无法对route树进行操作的…至少你无法删除已生成的路由。(本文假装你已经有了vue基础)其"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Pisces",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!0,onmobile:!0},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://kamiov.top/2019/09/17/vue实现权限路由的姿势及踩坑/"><script>!function(e,t,n,a,c,i,o,s,d){s=function(){i=t.createElement(n),o=t.getElementsByTagName(n)[0],i.src=c,i.charset="utf-8",i.async=1,o.parentNode.insertBefore(i,o)},e.ThinkPageWeatherWidgetObject=a,e[a]||(e[a]=function(){(e[a].q=e[a].q||[]).push(arguments)}),e[a].l=+new Date,e.attachEvent?e.attachEvent("onload",s):e.addEventListener("load",s,!1)}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js")</script><script>tpwidget("init",{flavor:"bubble",location:"WS0E9D8WN298",geolocation:"enabled",position:"top-right",margin:"10px 10px",language:"zh-chs",unit:"c",theme:"chameleon",uid:"UA53AD079A",hash:"d92c1841bf2156a41fca70f51511b0d9"}),tpwidget("show")</script><title>vue实现权限路由的姿势及踩坑 | kamiov的小屋</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">kamiov的小屋</span> <span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">记录自己的小日记</p></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://kamiov.top/2019/09/17/vue实现权限路由的姿势及踩坑/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="Kamio"><meta itemprop="description" content><meta itemprop="image" content="/images/kamio.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="kamiov的小屋"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">vue实现权限路由的姿势及踩坑</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-17T19:27:37+08:00">2019-09-17 </time></span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span> </a></span></span><span class="post-comments-count"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-comment-o"></i> </span><a href="/2019/09/17/vue实现权限路由的姿势及踩坑/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/09/17/vue实现权限路由的姿势及踩坑/" itemprop="commentCount"></span> </a></span><span id="/2019/09/17/vue实现权限路由的姿势及踩坑/" class="leancloud_visitors" data-flag-title="vue实现权限路由的姿势及踩坑"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-eye"></i> </span><span class="post-meta-item-text">阅读次数&#58;</span> <span class="leancloud-visitors-count"></span></span></div></header><div class="post-body" itemprop="articleBody"><h3 id="记录一下自己用到的路由权限简易实现"><a href="#记录一下自己用到的路由权限简易实现" class="headerlink" title="记录一下自己用到的路由权限简易实现"></a>记录一下自己用到的路由权限简易实现</h3><p>第一次实习就遇上这个大难点，本菜鸟翻阅了大量的资料，踩过了一堆坑之后才有了实现过程，希望尽量能写的简单易懂点，有错误的地方望指正。</p><h3 id="路由权限基本实现的几种方式思路（由易到难）"><a href="#路由权限基本实现的几种方式思路（由易到难）" class="headerlink" title="路由权限基本实现的几种方式思路（由易到难）"></a>路由权限基本实现的几种方式思路（由易到难）</h3><p><strong>首先要知道，在route.js只能通过钩子函数操纵数据</strong>，直接push会导致搭配的路由懒加载失效，而且是无法对route树进行操作的…至少你无法删除已生成的路由。(本文假装你已经有了vue基础)</p><p>其实核心都是基于beforeEach、meta元信息、和addRoutes进行操作的，区别只是姿势和效果不同</p><ul><li><p>最简单的基于<strong>meta元信息</strong>中自定义的规则判断，路由隐藏也是这么实现的。</p><p>举个栗子：下面是一段二级菜单的部分路由，比如淘宝首页点进去母婴用品，下面还有二级列表就好理解了吧</p></li></ul><pre><code>    {
+    path: &apos;/&apos;,
+    name: &apos;/&apos;,
+    redirect: &apos;index&apos;,  // 这是重定向
+    component: resolve =&gt; require([&apos;@/components/Menu.vue&apos;], resolve),
+    children: [
+          {
+            path: &apos;index&apos;,
+            meta: {
+              moduleName: &apos;首页&apos;, hidden: false, role: [&apos;index&apos;]
+            },
+            component: resolve =&gt; require([&apos;@/components/index.vue&apos;], resolve)
+          },
+      ]
+    }
+
+那么则可以在meta自定义规则信息，比如说标识一个hidden布尔值，那么在渲染路由时，可以通过v-if、v-show等隐藏渲染路由（注意路由依旧生成了，通过url或route.push是可以跳进去的）
+
+路由权限同理，可以定义一个变量数组[]接收权限标识符，路由少的可以每个分配唯一标识符，路由或角色多的能分配共同拥有相同的标识符......由你喜欢
+
+之后只需要在beforeEach里判断meta准许进入，无权限则跳转403什么的...
+
+boforeEach还可以做登录拦截，这里就不提了。
+
+**这种方法能渲染全部路由，实现起来简单。**
+
+**缺点是：每次跳转路由都要判断做权限判断，而且加载的路由太多的话，会对性能有影响。而且菜单是写死的**（不太推荐）
+</code></pre><ul><li><p><strong>还有一种是登录页分离的方式</strong></p><p>非vue的单页应用，就是单独的登录页成功后，将匹配的权限传递给主页面应用（可以看成是两个网站的跳转…），然后筛选路由列表渲染。（没用过，感兴趣的同学可以上网找点教程试试</p></li><li><p><strong>剩下的都是用addRoutes以动态加载的方式实现（略复杂</strong></p><ul><li><p><strong>由后端返回权限菜单列表，前端匹配处理</strong></p><p>（本菜鸟项目中用的就是这种方式）</p><p>首先，将需要动态加载的路由抽成一个新的文件，分为默认路由和动态路由</p></li></ul></li></ul><pre><code>        const defaultRouterMap = [
+          {
+            path: &apos;/login&apos;,
+            component: resolve =&gt; require([&apos;@/components/Login.vue&apos;], resolve)
+          },
+          {
+            path: &apos;*&apos;,
+            component: resolve =&gt; require([&apos;@/components/404.vue&apos;], resolve)
+          }
+        ]
+        const router = new Router({
+          mode: &apos;history&apos;,
+          routes: defaultRouterMap
+        })
+
+    上面是默认加载渲染的页面（总不能让人家连登录页都进不去吧ww）
+
+    抽出来的路由也是相同的结构，只是meta里多了个自定义的规则，比如 rule: [&apos;mother&apos;,&apos;son&apos;...]
+
+    基本叙述一下大概思路：
+
+    1. 登录成功后，将用户信息、token、权限列表、登录状态等存到store中
+
+    2. beforeEach判断登录状态存在，放行到下一步
+
+    3. 在store定义一个空变量存放新路由（或者存到sessionStorage），beforeEach判断是否为第一次登录加载路由，例如if(store.state.newRoute.length == 0)
+
+    4. 匹配权限列表，筛选出符合的路由数据
+
+    5. 将新的路由存到store的newRoute中（目的是之后的页面跳转统统放行）addRoutes生成插入的路由
+
+    6. 用户退出登录时，将store(或网页缓存)清空，用**location.reload()**方法强制刷新网页（因为vue是单页面应用，生成的路由会一直在页面中存在，而且vue-route官方没有删减路由的api......有另外更好的方法请告诉我）
+
+    **下面是大致要点和踩到的坑**
+
+    由于路由数据是个树结构，处理起来还是有点复杂的。本菜鸟的项目中后端返回是一个数组形式的字符串列表：如[&apos;A&apos;,&apos;B&apos;,&apos;Son&apos;,&apos;SuperUser&apos;...]
+
+    讨论的设计是：后端返回一个代表某角色所拥有的全部权限的列表，前端路由在meta.XXX中为每个路由设定一个唯一字符串，遍历匹配如果字符串不存在，则删除路由节点。
+
+    贴个大概的处理步骤作参考，（同事大佬提供了大部分实现，瑟瑟发抖，
+
+    尽量标清楚作用，这里只是处理路由数据的参考，各人实际情况不同，加油自己实现鸭（下面目的仅仅只是返回一个处理好的待生成路由，本菜鸟优化不下去了
+
+
+        function routeMatch (asyncRouterMap = [], routePower = []) { // 旧路由数据，权限列表
+          let newRoute = Object.assign({}, asyncRouterMap[0]) // 返回的新路由
+          function createRouter (Router) {
+            let i = 0
+            while (i &lt; Router.children.length) {
+              let router = Router.children[i]
+              if (router.children) {    // 这里的作用是递归遍历每一项的最深处
+                createRouter(router)
+              }
+              if (router.meta &amp;&amp; router.meta.role) { // 如果没设置meta的，默认放行
+                let has = false
+                for (let key of router.meta.role) {
+                  if (hasRole(routePower, key)) { // 如果权限存在，跳出循环
+                    has = true
+                    break
+                  }
+                }
+                if (has) {
+                  i++
+                } else {
+                  Router.children.splice(i, 1)  // 如果meta匹配失败，删除路由
+                }
+              } else {
+                i++
+              }
+            }
+          }
+          createRouter(newRoute)
+          // 判断重定向 &amp;&amp; 若一级模块下的子路由都不存在权限，则删除一级模块
+          let i = newRoute.children.length
+          let newMap = newRoute.children
+          while (i--) {
+            if (newMap[i].children &amp;&amp; newMap[i].children.length &gt; 1) {
+              if (newMap[i].children[0].redirect !== newMap[i].children[1].path) {
+                newMap[i].children[0].redirect = newMap[i].children[2].path
+              }
+            } else if (newMap[i].children &amp;&amp; newMap[i].children.length &lt;= 1) {
+              newMap.splice(i, 1)       // 删除一级路由
+            }
+          }
+          if (newRoute.redirect !== newRoute.children[0].path) {    // 改变重定向
+            newRoute.redirect = newRoute.children[0].path
+          }
+          return newRoute
+        }
+
+        function hasRole (roles, key) {     // 判断权限列表中是否含有meta.XXX
+          return roles.includes(key)
+        }
+        ```
+
+    由于这里实现的是二级菜单，到这里就结束了。更多级菜单嵌套，可能需要更加优化的手段处理，自己尝试啦~
+
+    之后便是生成路由，**注意：这里有个小坑 next(to)括号里必须加to，如果是next()的话会出现，路由加载成功但跳转的页面是空白页的情况（坑的好惨，怀疑是先后顺序的问题，用异步调试的跟打断点似的，最后偶尔瞥到了解决方案......**
+
+
+        if (routersArr.length === 0) {
+                routersArr = routeMatch(asyncRouterMap, store.state.routePower)
+                store.commit(&apos;setRoute&apos;, routersArr)
+                router.addRoutes([routersArr])
+                next(to)
+              } else {
+                next()
+              }
+
+
+    退出登录时，记得清除store数据
+
+- **路由列表完全由后端返回（甩锅一身轻**
+
+    有个问题是后端返回的 **&apos;() =&gt; import(&apos;@/pages/Login.vue&apos;)&apos;** ，如果不是出现在前端，webpage似乎不会对其进行编译打包...
+
+    前端可抽出一个文件对应compoent，像actionType那样
+
+
+        const A = () =&gt; import(&quot;../pages/Home.vue&quot;);
+        const B = () =&gt; import(&quot;../pages/UserInfo.vue&quot;);
+        export default {
+          typeA: A,
+          typeB: B
+        };
+        --------------------------
+        // 后端返回的数据
+        {
+            path: &apos;A&apos;,
+            component: typeA
+        }
+</code></pre><h3 id="后续坑点回顾"><a href="#后续坑点回顾" class="headerlink" title="后续坑点回顾"></a>后续坑点回顾</h3><ul><li>加载路由后跳转要使用next(to)</li><li>重定向问题：如果重定向页面不存在，会导致空白页问题。匹配父路由的children中，重定向路由与其下一位路由的redirect是否相等，动态更改重定向的path就ok了。</li><li>清除路由可以手动刷新页面…</li></ul><p>暂时不会权限细微到按钮，太难了 无助、弱小、但能吃…….</p><p>本文参考了下述资料，非常感谢大佬们的教程，对俺实现项目提供了很大的帮助</p><p><a href="https://juejin.im/post/5b5bfd5b6fb9a04fdd7d687a#heading-12" target="_blank" rel="noopener">https://juejin.im/post/5b5bfd5b6fb9a04fdd7d687a#heading-12</a></p><p><a href="https://juejin.im/post/5c7bae3ff265da2db27950f3#heading-4" target="_blank" rel="noopener">https://juejin.im/post/5c7bae3ff265da2db27950f3#heading-4</a></p></div><footer class="post-footer"><div class="post-tags"><a href="/tags/vue/" rel="tag"># vue</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2019/09/17/一段有趣的css/" rel="next" title="一段有趣的css"><i class="fa fa-chevron-left"></i> 一段有趣的css</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div id="sidebar-dimmer"></div><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="/"><img class="site-author-image" itemprop="image" src="/images/kamio.jpg" alt="Kamio"></a><p class="site-author-name" itemprop="name">Kamio</p><p class="site-description motion-element" itemprop="description">前端，宅</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives/"><span class="site-state-item-count">13</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">5</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">7</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/Kamiov" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a> </span><span class="links-of-author-item"><a href="1..." target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a> </span><span class="links-of-author-item"><a href="..." target="_blank" title="QQ"><i class="fa fa-fw fa-qq"></i>QQ</a> </span><span class="links-of-author-item"><a href="https://www.zhihu.com/people/shen-yin-zhi-ren/activities" target="_blank" title="知乎"><i class="fa fa-fw fa-zhihu"></i>知乎</a></span></div><div class="links-of-blogroll motion-element links-of-blogroll-inline"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-list"></i> 推荐阅读</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"><a href="https://developer.mozilla.org/en-US/" title="MDN" target="_blank">MDN</a></li><li class="links-of-blogroll-item"><a href="https://juejin.im/welcome/frontend" title="掘金" target="_blank">掘金</a></li><li class="links-of-blogroll-item"><a href="https://github.com/getify/You-Dont-Know-JS" title="《You-Dont-Know-JS》" target="_blank">《You-Dont-Know-JS》</a></li><li class="links-of-blogroll-item"><a href="https://neets.cc/" title="追剧网站" target="_blank">追剧网站</a></li></ul></div><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28606052&auto=0&height=66"></iframe></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#记录一下自己用到的路由权限简易实现"><span class="nav-number">1.</span> <span class="nav-text">记录一下自己用到的路由权限简易实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由权限基本实现的几种方式思路（由易到难）"><span class="nav-number">2.</span> <span class="nav-text">路由权限基本实现的几种方式思路（由易到难）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后续坑点回顾"><span class="nav-number">3.</span> <span class="nav-text">后续坑点回顾</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; ©2019 &mdash; <span itemprop="copyrightYear">2019</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">Kamio</span></div><span id="sitetime"></span><script language="javascript">function siteTime(){window.setTimeout("siteTime()",1e3);var e=1e3,t=60*e,o=60*t,i=24*o,a=365*i,n=new Date,r=n.getFullYear(),l=n.getMonth()+1,s=n.getDate(),M=n.getHours(),g=n.getMinutes(),m=n.getSeconds(),T=Date.UTC(2019,3,4,0,0,0),f=Date.UTC(r,l,s,M,g,m),h=f-T,u=Math.floor(h/a),d=Math.floor(h/i-365*u),D=Math.floor((h-(365*u+d)*i)/o),c=Math.floor((h-(365*u+d)*i-D*o)/t),w=Math.floor((h-(365*u+d)*i-D*o-c*t)/e);document.getElementById("sitetime").innerHTML=" 已运行"+d+" 天 "+D+" 小时 "+c+" 分钟 "+w+" 秒"}siteTime()</script></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span></div><div id="needsharebutton-float"><span class="btn"><i class="fa fa-share-alt" aria-hidden="true"></i></span></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: true,
+        notify: true,
+        appId: 'VcK5GToxbILf37pX44nXRFWR-gzGzoHsz',
+        appKey: 'JkHkhi64Kiki7RkJFPP6SDsj',
+        placeholder: '不留下消息再走吗( ;ﾟдﾟ)',
+        avatar:'identicon',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });</script><script type="text/javascript">function proceedsearch(){$("body").append('<div class="search-popup-overlay local-search-pop-overlay"></div>').css("overflow","hidden"),$(".search-popup-overlay").click(onPopupClose),$(".popup").toggle();var t=$("#local-search-input");t.attr("autocapitalize","none"),t.attr("autocorrect","off"),t.focus()}var isfetched=!1,isXml=!0,search_path="search.xml";0===search_path.length?search_path="search.xml":/json$/i.test(search_path)&&(isXml=!1);var path="/"+search_path,onPopupClose=function(t){$(".popup").hide(),$("#local-search-input").val(""),$(".search-result-list").remove(),$("#no-result").remove(),$(".local-search-pop-overlay").remove(),$("body").css("overflow","")},searchFunc=function(t,e,o){"use strict";$("body").append('<div class="search-popup-overlay local-search-pop-overlay"><div id="search-loading-icon"><i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div></div>').css("overflow","hidden"),$("#search-loading-icon").css("margin","20% auto 0 auto").css("text-align","center"),$.ajax({url:t,dataType:isXml?"xml":"json",async:!0,success:function(t){isfetched=!0,$(".popup").detach().appendTo(".header-inner");var n=isXml?$("entry",t).map(function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}}).get():t,r=document.getElementById(e),s=document.getElementById(o),a=function(){var t=r.value.trim().toLowerCase(),e=t.split(/[\s\-]+/);e.length>1&&e.push(t);var o=[];if(t.length>0&&n.forEach(function(n){function r(e,o,n,r){for(var s=r[r.length-1],a=s.position,i=s.word,l=[],h=0;a+i.length<=n&&0!=r.length;){i===t&&h++,l.push({position:a,length:i.length});var p=a+i.length;for(r.pop();0!=r.length&&(s=r[r.length-1],a=s.position,i=s.word,p>a);)r.pop()}return c+=h,{hits:l,start:o,end:n,searchTextCount:h}}function s(t,e){var o="",n=e.start;return e.hits.forEach(function(e){o+=t.substring(n,e.position);var r=e.position+e.length;o+='<b class="search-keyword">'+t.substring(e.position,r)+"</b>",n=r}),o+=t.substring(n,e.end)}var a=!1,i=0,c=0,l=n.title.trim(),h=l.toLowerCase(),p=n.content.trim().replace(/<[^>]+>/g,""),u=p.toLowerCase(),f=decodeURIComponent(n.url),d=[],g=[];if(""!=l&&(e.forEach(function(t){function e(t,e,o){var n=t.length;if(0===n)return[];var r=0,s=[],a=[];for(o||(e=e.toLowerCase(),t=t.toLowerCase());(s=e.indexOf(t,r))>-1;)a.push({position:s,word:t}),r=s+n;return a}d=d.concat(e(t,h,!1)),g=g.concat(e(t,u,!1))}),(d.length>0||g.length>0)&&(a=!0,i=d.length+g.length)),a){[d,g].forEach(function(t){t.sort(function(t,e){return e.position!==t.position?e.position-t.position:t.word.length-e.word.length})});var v=[];0!=d.length&&v.push(r(l,0,l.length,d));for(var $=[];0!=g.length;){var C=g[g.length-1],m=C.position,x=C.word,w=m-20,y=m+80;0>w&&(w=0),y<m+x.length&&(y=m+x.length),y>p.length&&(y=p.length),$.push(r(p,w,y,g))}$.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hits.length!==e.hits.length?e.hits.length-t.hits.length:t.start-e.start});var T=parseInt("1");T>=0&&($=$.slice(0,T));var b="";b+=0!=v.length?"<li><a href='"+f+"' class='search-result-title'>"+s(l,v[0])+"</a>":"<li><a href='"+f+"' class='search-result-title'>"+l+"</a>",$.forEach(function(t){b+="<a href='"+f+'\'><p class="search-result">'+s(p,t)+"...</p></a>"}),b+="</li>",o.push({item:b,searchTextCount:c,hitCount:i,id:o.length})}}),1===e.length&&""===e[0])s.innerHTML='<div id="no-result"><i class="fa fa-search fa-5x" /></div>';else if(0===o.length)s.innerHTML='<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>';else{o.sort(function(t,e){return t.searchTextCount!==e.searchTextCount?e.searchTextCount-t.searchTextCount:t.hitCount!==e.hitCount?e.hitCount-t.hitCount:e.id-t.id});var a='<ul class="search-result-list">';o.forEach(function(t){a+=t.item}),a+="</ul>",s.innerHTML=a}};r.addEventListener("input",a),$(".local-search-pop-overlay").remove(),$("body").css("overflow",""),proceedsearch()}})};$(".popup-trigger").click(function(t){t.stopPropagation(),isfetched===!1?searchFunc(path,"local-search-input","local-search-result"):proceedsearch()}),$(".popup-btn-close").click(onPopupClose),$(".popup").click(function(t){t.stopPropagation()}),$(document).on("keyup",function(t){var e=27===t.which&&$(".search-popup").is(":visible");e&&onPopupClose()})</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("VcK5GToxbILf37pX44nXRFWR-gzGzoHsz","JkHkhi64Kiki7RkJFPP6SDsj")</script><script>function showTime(e){var t=new AV.Query(e),n=[],o=$(".leancloud_visitors");o.each(function(){n.push($(this).attr("id").trim())}),t.containedIn("url",n),t.find().done(function(e){var t=".leancloud-visitors-count";if(0===e.length)return void o.find(t).text(0);for(var i=0;i<e.length;i++){var r=e[i],s=r.get("url"),l=r.get("time"),c=document.getElementById(s);$(c).find(t).text(l)}for(var i=0;i<n.length;i++){var s=n[i],c=document.getElementById(s),u=$(c).find(t);""==u.text()&&u.text(0)}}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(e){var t=$(".leancloud_visitors"),n=t.attr("id").trim(),o=t.attr("data-flag-title").trim(),i=new AV.Query(e);i.equalTo("url",n),i.find({success:function(t){if(t.length>0){var i=t[0];i.fetchWhenSave(!0),i.increment("time"),i.save(null,{success:function(e){var t=$(document.getElementById(n));t.find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var r=new e,s=new AV.ACL;s.setPublicReadAccess(!0),s.setPublicWriteAccess(!0),r.setACL(s),r.set("title",o),r.set("url",n),r.set("time",1),r.save(null,{success:function(e){var t=$(document.getElementById(n));t.find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):$(".post-title-link").length>1&&showTime(e)})</script><link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css"><script src="/lib/needsharebutton/needsharebutton.js"></script><script>flOptions={},flOptions.iconStyle="default",flOptions.boxForm="vertical",flOptions.position="topRight",flOptions.networks="Weibo,Wechat,Douban,QQZone,Twitter,Facebook",new needShareButton("#needsharebutton-float",flOptions)</script></body></html><!-- rebuild by neat -->
