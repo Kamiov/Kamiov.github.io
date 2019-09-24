@@ -109,18 +109,18 @@
 
 
 
-<meta name="description" content="路由守卫、登陆验证token、axios全局配置及拦截器和响应器初次使用遇到了，顺便把记一下吧，较简略 还未完善先丢一个官网路由守卫的使用示例 router.beforeEach((to, from, next) =&amp;gt; {   if (to.path === &amp;apos;/login&amp;apos;) {     next()   } else { // 登录验证     if (!store.">
+<meta name="description" content="页面会奇怪的刷新两次最初怀疑是动态路由的钩子函数跑了两遍，导致组件也生成了两次，导致生命周期打印和接口都跑了两遍。于是去找了找addRouters的解释： 首先，使用动态路由必须用next(to)或next(to.path) (一样的效果…否则只用next()的话会跳到404页面。 网上一个说的很好理解的评论：  因为每次刷新页面时，路由都会被清空，而全局状态不会。 清空路由之后就会触发路由的钩子">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="路由守卫与token验证配置例子">
-<meta property="og:url" content="http://kamiov.top/2019/08/18/路由守卫与token验证配置例子/index.html">
+<meta property="og:title" content="一次排错过程">
+<meta property="og:url" content="http://kamiov.top/2019/09/25/一次排错过程/index.html">
 <meta property="og:site_name" content="建设中">
-<meta property="og:description" content="路由守卫、登陆验证token、axios全局配置及拦截器和响应器初次使用遇到了，顺便把记一下吧，较简略 还未完善先丢一个官网路由守卫的使用示例 router.beforeEach((to, from, next) =&amp;gt; {   if (to.path === &amp;apos;/login&amp;apos;) {     next()   } else { // 登录验证     if (!store.">
+<meta property="og:description" content="页面会奇怪的刷新两次最初怀疑是动态路由的钩子函数跑了两遍，导致组件也生成了两次，导致生命周期打印和接口都跑了两遍。于是去找了找addRouters的解释： 首先，使用动态路由必须用next(to)或next(to.path) (一样的效果…否则只用next()的话会跳到404页面。 网上一个说的很好理解的评论：  因为每次刷新页面时，路由都会被清空，而全局状态不会。 清空路由之后就会触发路由的钩子">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-18T06:11:40.128Z">
+<meta property="og:updated_time" content="2019-09-24T16:21:19.955Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="路由守卫与token验证配置例子">
-<meta name="twitter:description" content="路由守卫、登陆验证token、axios全局配置及拦截器和响应器初次使用遇到了，顺便把记一下吧，较简略 还未完善先丢一个官网路由守卫的使用示例 router.beforeEach((to, from, next) =&amp;gt; {   if (to.path === &amp;apos;/login&amp;apos;) {     next()   } else { // 登录验证     if (!store.">
+<meta name="twitter:title" content="一次排错过程">
+<meta name="twitter:description" content="页面会奇怪的刷新两次最初怀疑是动态路由的钩子函数跑了两遍，导致组件也生成了两次，导致生命周期打印和接口都跑了两遍。于是去找了找addRouters的解释： 首先，使用动态路由必须用next(to)或next(to.path) (一样的效果…否则只用next()的话会跳到404页面。 网上一个说的很好理解的评论：  因为每次刷新页面时，路由都会被清空，而全局状态不会。 清空路由之后就会触发路由的钩子">
 
 
 
@@ -150,7 +150,7 @@
 
 
 
-  <link rel="canonical" href="http://kamiov.top/2019/08/18/路由守卫与token验证配置例子/">
+  <link rel="canonical" href="http://kamiov.top/2019/09/25/一次排错过程/">
 
 
 
@@ -170,7 +170,7 @@
 });
 tpwidget("show");</script>
 
-  <title>路由守卫与token验证配置例子 | 建设中</title>
+  <title>一次排错过程 | 建设中</title>
   
 
 
@@ -339,7 +339,7 @@ tpwidget("show");</script>
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://kamiov.top/2019/08/18/路由守卫与token验证配置例子/">
+    <link itemprop="mainEntityOfPage" href="http://kamiov.top/2019/09/25/一次排错过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kamio">
@@ -356,7 +356,7 @@ tpwidget("show");</script>
 
         
         
-          <h1 class="post-title" itemprop="name headline">路由守卫与token验证配置例子</h1>
+          <h1 class="post-title" itemprop="name headline">一次排错过程</h1>
         
 
         <div class="post-meta">
@@ -368,8 +368,8 @@ tpwidget("show");</script>
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-18T12:57:11+08:00">
-                2019-08-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-25T22:06:37+08:00">
+                2019-09-25
               </time>
             
 
@@ -391,8 +391,8 @@ tpwidget("show");</script>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -409,8 +409,8 @@ tpwidget("show");</script>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/08/18/路由守卫与token验证配置例子/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/18/路由守卫与token验证配置例子/" itemprop="commentCount"></span>
+                <a href="/2019/09/25/一次排错过程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/25/一次排错过程/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -418,7 +418,7 @@ tpwidget("show");</script>
 
           
           
-             <span id="/2019/08/18/路由守卫与token验证配置例子/" class="leancloud_visitors" data-flag-title="路由守卫与token验证配置例子">
+             <span id="/2019/09/25/一次排错过程/" class="leancloud_visitors" data-flag-title="一次排错过程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -449,134 +449,32 @@ tpwidget("show");</script>
       
 
       
-        <h1 id="路由守卫、登陆验证token、axios全局配置及拦截器和响应器"><a href="#路由守卫、登陆验证token、axios全局配置及拦截器和响应器" class="headerlink" title="路由守卫、登陆验证token、axios全局配置及拦截器和响应器"></a>路由守卫、登陆验证token、axios全局配置及拦截器和响应器</h1><h3 id="初次使用遇到了，顺便把记一下吧，较简略-还未完善"><a href="#初次使用遇到了，顺便把记一下吧，较简略-还未完善" class="headerlink" title="初次使用遇到了，顺便把记一下吧，较简略 还未完善"></a>初次使用遇到了，顺便把记一下吧，较简略 还未完善</h3><p>先丢一个官网路由守卫的使用示例</p>
-<pre><code>router.beforeEach((to, from, next) =&gt; {
-  if (to.path === &apos;/login&apos;) {
-    next()
-  } else { // 登录验证
-    if (!store.state.isLogin) { // store状态设为true后，路由守卫放行
-      next(&apos;/login&apos;)
-    } else {
-      next()
-    }
-  }
-})
-</code></pre><p>这里的store.state.isLogin是放在全局状态里判断登录是否成功，默认false，如果登录成功后设置为true。(仅是一个例子，可根据自行爱好定义</p>
-<p><strong>登陆页面login.vue，post请求成功后commit触发定义在mutation的login方法，将返回的token和用户信息传过去，然后把token（和用户信息）存到缓存中</strong></p>
-<pre><code>// sessionStorage用于临时保存在浏览器未关闭时
-// 或用localStorage永久缓存，适用于（X天内自动登陆），记得设置过期时间
-sessionStorage.setItem(&apos;user&apos;, this.form.username)
-</code></pre><p><strong>store拿到数据后，保存token，设置全局axios请求头默认携带token，isLogin = true，转到首页</strong></p>
-<pre><code>state.token = token
-axios.defaults.headers.common[&apos;Authorization&apos;] = token
-state.isLogin = true
-</code></pre><p><strong>store.state初始时，先触发方法去查找本地缓存是否有用户信息</strong></p>
-<pre><code>let data = sessionStorage.getItem(name)  return data //注意存储的格式
-//在状态管理里判断用户信息和token是否存在
-if (sotreState &amp;&amp; sotreState.token) {
-      sotreState.navbarActiveIndex = &apos;&apos;  //初始化用在别处的状态 本例无用
-      sotreState.sidebarActiveIndex = &apos;&apos; //同上，
-      axios.defaults.headers.common[&apos;Authorization&apos;] = sotreState.token  //如果token存在，设置默认请求头携带token，初始状态
-
-      return sotreState
-} else {
-  return initState() // 初始化store方法，全部清空
-}
-</code></pre><p><strong>用户点击退出登陆时，触发logout方法，将store.state(和浏览器缓存)清空，跳回到登录页面</strong></p>
-<hr>
-<p>转一个网上的例子一</p>
-<pre><code>// http request 请求拦截器
-// 作用是在发送请求前进行一些操作，例如在每个请求体里加上token
-axios.interceptors.request.use(
-    config =&gt; {
-        if (store.state.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
-            config.headers.Authorization = `token ${store.state.token}`;
-        }
-        return config;
-    },
-    err =&gt; {
-        // 对响应错误做点什么
-        return Promise.reject(err);
-    });
-
-// http response 响应拦截器
-// 作用是在接收到响应后进行一些操作，常用于统一配置错误状态提示，本例处理方法是将token信息清空
-axios.interceptors.response.use(
-    response =&gt; {
-        return response;
-    },
-    error =&gt; {
-        if (error.response) {
-            switch (error.response.status) { // 这里是后端返回错误码
-                case 401:
-                    // 返回 401 清除token信息并跳转到登录页面
-                    store.commit(types.LOGOUT); // 派发清空状态(token)方法
-                    router.replace({
-                        path: &apos;login&apos;,
-                        query: {redirect: router.currentRoute.fullPath}
-                    })
-            }
-        }
-        return Promise.reject(error.response.data)   // 返回接口返回的错误信息
-    });
-</code></pre><hr>
-<blockquote>
-<p><strong>记一个处理思路</strong></p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>0.每次打开网页，store初始化时，可以定义方法setItem判断本地缓存里是否有token信息，和验证是否过期，如果存在则赋值给state.token，设置axios请求默认携带state.token，路由放行</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<ol>
-<li>第一次登录的时候，前端调后端的登陆接口，发送用户名和密码</li>
-</ol>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<ol start="2">
-<li>后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token</li>
-</ol>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<ol start="3">
-<li>前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面</li>
-</ol>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<ol start="4">
-<li>前端每次跳转路由，就判断 localStroage（或在store设置Boolean值判断也行） 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面</li>
-</ol>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<ol start="5">
-<li>每次调后端接口，都要在请求头中加token</li>
-</ol>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<ol start="6">
-<li>后端判断请求头中有无token，有token，就拿到token并验证token，验证成功就返回数据，验证失败（例如：token过期）就返回401，请求头中没有token也返回401</li>
-</ol>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<ol start="7">
-<li>如果前端拿到状态码为401，就清除token信息并跳转到登录页面</li>
-</ol>
-</blockquote>
-</blockquote>
+        <h1 id="页面会奇怪的刷新两次"><a href="#页面会奇怪的刷新两次" class="headerlink" title="页面会奇怪的刷新两次"></a>页面会奇怪的刷新两次</h1><p><strong>最初怀疑是动态路由的钩子函数跑了两遍，导致组件也生成了两次，导致生命周期打印和接口都跑了两遍。于是去找了找addRouters的解释：</strong></p>
+<p>首先，使用动态路由必须用<strong>next(to)或next(to.path)</strong> (一样的效果…<br>否则只用next()的话会跳到404页面。</p>
+<p>网上一个说的很好理解的评论：</p>
+<p><a href="一次排错过程/error.png"></a></p>
+<p>因为每次刷新页面时，路由都会被清空，而全局状态不会。</p>
+<p>清空路由之后就会触发路由的钩子函数，重走一遍生成路由的过程。</p>
+<p>而生成路由时，<strong>addRouters还未完成前，next()就会生效</strong>，从而导致无权限而跳到404页面。使用<strong>next(to)</strong>则相当于 <strong>再次调用了</strong>一遍钩子函数。</p>
+<p>总结就是：<strong>使用next(to)会调用两遍全局守卫，第一次调用时 addRouters还未完成。跳到第二遍调用，此时路由添加完成，便能成功进入到to.path的指定页面。</strong></p>
+<p>本文遇到的坑是：登录加载完路由之后，手动刷新页面发现会调用两次接口，意味着每次刷新都调用了两遍js文件。这还是echarts加载数据报错时，发现的问题。</p>
+<p>但在全局守卫里打印信息，发现这个钩子函数<strong>也只执行了一次</strong>，说明不是动态添加路由的问题。</p>
+<p>继续排查</p>
+<p>从组件的周期函数挨个打印，发现从created时就已经被调用到两次了。然后就很疑惑，满脑子在想：<strong>为什么会执行两次JS文件？</strong></p>
+<p>然后发现<strong>只有一级页面的首页是正常的</strong>，只会调用一次。出问题的都是二级页面。</p>
+<p>那么就来到一级路由菜单组件，打印也是正常的。再检查一遍代码，发现是<strong><router-view>加载二级路由菜单时</router-view></strong>，写了<strong>两个v-if else</strong>渲染都被执行到了。</p>
+<p>因为首页是没有二级路由子菜单的，所以最初这里用的是<strong>v-if判断无children</strong>则不渲染二级路由。（因为代码不是自己写的，追查问题时也搞不太懂部分代码的作用…</p>
+<p>由于改用了动态路由添加，<strong>每次刷新页面都等于从0初始化生成页面的效果</strong>，所以这里v-if失效了，<strong>变成了两个<router-view>都默认生效。</router-view></strong></p>
+<p>解决方法也很简单，改一下判断条件就ok了。</p>
+<p>###通过这次排雷经历，得出了以下结论：</p>
+<ul>
+<li>动态路由是不会导致刷新加载两次页面的，是代码调用的锅。</li>
+<li>写多个<router-view>会导致页面加载(调用)多次</router-view></li>
+<li>解决错误的方法，要从出错的地方一步一步还原走下去，思考代码执行逻辑，找出是哪一步可能会出的bug。</li>
+<li>本次踩坑的历程：从怀疑addRouters作用 &gt; 在beforeEach打印验证 &gt; 到组件的生命周期里打印验证 &gt; 到渲染路由的组件打印验证 &gt; 通过断点注释判断出发生bug的地方 &gt; 思考问题原理并解决</li>
+<li>以上过程得力于搜索引擎的强力支持，和找bug的思路逻辑辅助。</li>
+<li>遇到问题要先思考一遍逻辑过程</li>
+</ul>
 
       
     </div>
@@ -607,8 +505,8 @@ axios.interceptors.response.use(
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/18/关于echarts的X轴显示不全/" rel="next" title="关于echarts的X轴显示不全">
-                <i class="fa fa-chevron-left"></i> 关于echarts的X轴显示不全
+              <a href="/2019/09/17/vue实现权限路由的姿势及踩坑/" rel="next" title="vue实现权限路由的姿势及踩坑">
+                <i class="fa fa-chevron-left"></i> vue实现权限路由的姿势及踩坑
               </a>
             
           </div>
@@ -616,10 +514,6 @@ axios.interceptors.response.use(
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/18/axios内部封装/" rel="prev" title="axios内部封装">
-                axios内部封装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -816,7 +710,7 @@ axios.interceptors.response.use(
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#路由守卫、登陆验证token、axios全局配置及拦截器和响应器"><span class="nav-number">1.</span> <span class="nav-text">路由守卫、登陆验证token、axios全局配置及拦截器和响应器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初次使用遇到了，顺便把记一下吧，较简略-还未完善"><span class="nav-number">1.0.1.</span> <span class="nav-text">初次使用遇到了，顺便把记一下吧，较简略 还未完善</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#页面会奇怪的刷新两次"><span class="nav-number">1.</span> <span class="nav-text">页面会奇怪的刷新两次</span></a></li></ol></div>
             
 
           </div>
